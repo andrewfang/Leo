@@ -1,0 +1,293 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4920E7CB1C7CD1D8007FD3D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */; };
+		4920E7CD1C7CD1D8007FD3D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7CC1C7CD1D8007FD3D3 /* ViewController.swift */; };
+		4920E7D01C7CD1D8007FD3D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4920E7CE1C7CD1D8007FD3D3 /* Main.storyboard */; };
+		4920E7D21C7CD1D8007FD3D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4920E7D11C7CD1D8007FD3D3 /* Assets.xcassets */; };
+		4920E7D51C7CD1D8007FD3D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4920E7D31C7CD1D8007FD3D3 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4920E7C71C7CD1D8007FD3D3 /* zaldy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zaldy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		4920E7CC1C7CD1D8007FD3D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4920E7CF1C7CD1D8007FD3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		4920E7D11C7CD1D8007FD3D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		4920E7D41C7CD1D8007FD3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		4920E7D61C7CD1D8007FD3D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4920E7C41C7CD1D8007FD3D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4920E7BE1C7CD1D7007FD3D3 = {
+			isa = PBXGroup;
+			children = (
+				4920E7C91C7CD1D8007FD3D3 /* zaldy */,
+				4920E7C81C7CD1D8007FD3D3 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4920E7C81C7CD1D8007FD3D3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4920E7C71C7CD1D8007FD3D3 /* zaldy.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4920E7C91C7CD1D8007FD3D3 /* zaldy */ = {
+			isa = PBXGroup;
+			children = (
+				4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */,
+				4920E7CC1C7CD1D8007FD3D3 /* ViewController.swift */,
+				4920E7CE1C7CD1D8007FD3D3 /* Main.storyboard */,
+				4920E7D11C7CD1D8007FD3D3 /* Assets.xcassets */,
+				4920E7D31C7CD1D8007FD3D3 /* LaunchScreen.storyboard */,
+				4920E7D61C7CD1D8007FD3D3 /* Info.plist */,
+			);
+			path = zaldy;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4920E7C61C7CD1D8007FD3D3 /* zaldy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4920E7D91C7CD1D8007FD3D3 /* Build configuration list for PBXNativeTarget "zaldy" */;
+			buildPhases = (
+				4920E7C31C7CD1D8007FD3D3 /* Sources */,
+				4920E7C41C7CD1D8007FD3D3 /* Frameworks */,
+				4920E7C51C7CD1D8007FD3D3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = zaldy;
+			productName = zaldy;
+			productReference = 4920E7C71C7CD1D8007FD3D3 /* zaldy.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4920E7BF1C7CD1D7007FD3D3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Fang Industries";
+				TargetAttributes = {
+					4920E7C61C7CD1D8007FD3D3 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = 4920E7C21C7CD1D7007FD3D3 /* Build configuration list for PBXProject "zaldy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 4920E7BE1C7CD1D7007FD3D3;
+			productRefGroup = 4920E7C81C7CD1D8007FD3D3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4920E7C61C7CD1D8007FD3D3 /* zaldy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4920E7C51C7CD1D8007FD3D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4920E7D51C7CD1D8007FD3D3 /* LaunchScreen.storyboard in Resources */,
+				4920E7D21C7CD1D8007FD3D3 /* Assets.xcassets in Resources */,
+				4920E7D01C7CD1D8007FD3D3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4920E7C31C7CD1D8007FD3D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4920E7CD1C7CD1D8007FD3D3 /* ViewController.swift in Sources */,
+				4920E7CB1C7CD1D8007FD3D3 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		4920E7CE1C7CD1D8007FD3D3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4920E7CF1C7CD1D8007FD3D3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		4920E7D31C7CD1D8007FD3D3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4920E7D41C7CD1D8007FD3D3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		4920E7D71C7CD1D8007FD3D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		4920E7D81C7CD1D8007FD3D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4920E7DA1C7CD1D8007FD3D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = zaldy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewbfang.zaldy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		4920E7DB1C7CD1D8007FD3D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = zaldy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.andrewbfang.zaldy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4920E7C21C7CD1D7007FD3D3 /* Build configuration list for PBXProject "zaldy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4920E7D71C7CD1D8007FD3D3 /* Debug */,
+				4920E7D81C7CD1D8007FD3D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4920E7D91C7CD1D8007FD3D3 /* Build configuration list for PBXNativeTarget "zaldy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4920E7DA1C7CD1D8007FD3D3 /* Debug */,
+				4920E7DB1C7CD1D8007FD3D3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4920E7BF1C7CD1D7007FD3D3 /* Project object */;
+}
