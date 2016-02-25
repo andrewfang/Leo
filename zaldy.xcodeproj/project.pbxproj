@@ -8,20 +8,38 @@
 
 /* Begin PBXBuildFile section */
 		4920E7CB1C7CD1D8007FD3D3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */; };
-		4920E7CD1C7CD1D8007FD3D3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7CC1C7CD1D8007FD3D3 /* ViewController.swift */; };
 		4920E7D01C7CD1D8007FD3D3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4920E7CE1C7CD1D8007FD3D3 /* Main.storyboard */; };
 		4920E7D21C7CD1D8007FD3D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4920E7D11C7CD1D8007FD3D3 /* Assets.xcassets */; };
 		4920E7D51C7CD1D8007FD3D3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4920E7D31C7CD1D8007FD3D3 /* LaunchScreen.storyboard */; };
+		4920E7DD1C7CD6BE007FD3D3 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7DC1C7CD6BE007FD3D3 /* ChatViewController.swift */; };
+		4920E7EA1C7CD702007FD3D3 /* UIPaddedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7E61C7CD702007FD3D3 /* UIPaddedLabel.swift */; };
+		4920E7EB1C7CD702007FD3D3 /* ChatItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7E71C7CD702007FD3D3 /* ChatItem.swift */; };
+		4920E7EC1C7CD702007FD3D3 /* ChatTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7E81C7CD702007FD3D3 /* ChatTableViewCell.swift */; };
+		4920E7EF1C7CD73D007FD3D3 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7EE1C7CD73D007FD3D3 /* Database.swift */; };
+		4920E7F11C7CDA1D007FD3D3 /* UIColor+PT.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7F01C7CDA1D007FD3D3 /* UIColor+PT.swift */; };
+		4920E7F41C7CECBA007FD3D3 /* ChatResposeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7F31C7CECBA007FD3D3 /* ChatResposeCollectionViewCell.swift */; };
+		4920E7F61C7CEF8B007FD3D3 /* ChatResponseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7F51C7CEF8B007FD3D3 /* ChatResponseButton.swift */; };
+		4920E7FB1C7D8B03007FD3D3 /* ChatImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4920E7FA1C7D8B03007FD3D3 /* ChatImageTableViewCell.swift */; };
+		4974DEDE1C7EF934000D0923 /* ChatBubblesLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974DEDD1C7EF934000D0923 /* ChatBubblesLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4920E7C71C7CD1D8007FD3D3 /* zaldy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zaldy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4920E7CC1C7CD1D8007FD3D3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		4920E7CF1C7CD1D8007FD3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4920E7D11C7CD1D8007FD3D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4920E7D41C7CD1D8007FD3D3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4920E7D61C7CD1D8007FD3D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4920E7DC1C7CD6BE007FD3D3 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = ../ChatViewController.swift; sourceTree = "<group>"; };
+		4920E7E61C7CD702007FD3D3 /* UIPaddedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIPaddedLabel.swift; sourceTree = "<group>"; };
+		4920E7E71C7CD702007FD3D3 /* ChatItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatItem.swift; sourceTree = "<group>"; };
+		4920E7E81C7CD702007FD3D3 /* ChatTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatTableViewCell.swift; sourceTree = "<group>"; };
+		4920E7EE1C7CD73D007FD3D3 /* Database.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		4920E7F01C7CDA1D007FD3D3 /* UIColor+PT.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+PT.swift"; sourceTree = "<group>"; };
+		4920E7F31C7CECBA007FD3D3 /* ChatResposeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatResposeCollectionViewCell.swift; sourceTree = "<group>"; };
+		4920E7F51C7CEF8B007FD3D3 /* ChatResponseButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatResponseButton.swift; sourceTree = "<group>"; };
+		4920E7FA1C7D8B03007FD3D3 /* ChatImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatImageTableViewCell.swift; sourceTree = "<group>"; };
+		4974DEDD1C7EF934000D0923 /* ChatBubblesLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubblesLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +72,47 @@
 		4920E7C91C7CD1D8007FD3D3 /* zaldy */ = {
 			isa = PBXGroup;
 			children = (
-				4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */,
-				4920E7CC1C7CD1D8007FD3D3 /* ViewController.swift */,
+				4920E7F91C7D6F2B007FD3D3 /* Model */,
+				4920E7F81C7D6C12007FD3D3 /* Subviews */,
+				4920E7DC1C7CD6BE007FD3D3 /* ChatViewController.swift */,
 				4920E7CE1C7CD1D8007FD3D3 /* Main.storyboard */,
 				4920E7D11C7CD1D8007FD3D3 /* Assets.xcassets */,
+				4920E7F21C7CDA88007FD3D3 /* supporting files */,
+			);
+			path = zaldy;
+			sourceTree = "<group>";
+		};
+		4920E7F21C7CDA88007FD3D3 /* supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				4920E7CA1C7CD1D8007FD3D3 /* AppDelegate.swift */,
 				4920E7D31C7CD1D8007FD3D3 /* LaunchScreen.storyboard */,
 				4920E7D61C7CD1D8007FD3D3 /* Info.plist */,
 			);
-			path = zaldy;
+			name = "supporting files";
+			sourceTree = "<group>";
+		};
+		4920E7F81C7D6C12007FD3D3 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				4920E7F51C7CEF8B007FD3D3 /* ChatResponseButton.swift */,
+				4920E7F31C7CECBA007FD3D3 /* ChatResposeCollectionViewCell.swift */,
+				4920E7E81C7CD702007FD3D3 /* ChatTableViewCell.swift */,
+				4920E7E61C7CD702007FD3D3 /* UIPaddedLabel.swift */,
+				4974DEDD1C7EF934000D0923 /* ChatBubblesLayout.swift */,
+				4920E7FA1C7D8B03007FD3D3 /* ChatImageTableViewCell.swift */,
+			);
+			name = Subviews;
+			sourceTree = "<group>";
+		};
+		4920E7F91C7D6F2B007FD3D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				4920E7EE1C7CD73D007FD3D3 /* Database.swift */,
+				4920E7F01C7CDA1D007FD3D3 /* UIColor+PT.swift */,
+				4920E7E71C7CD702007FD3D3 /* ChatItem.swift */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -135,8 +186,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4920E7CD1C7CD1D8007FD3D3 /* ViewController.swift in Sources */,
+				4920E7EB1C7CD702007FD3D3 /* ChatItem.swift in Sources */,
+				4920E7DD1C7CD6BE007FD3D3 /* ChatViewController.swift in Sources */,
+				4920E7F11C7CDA1D007FD3D3 /* UIColor+PT.swift in Sources */,
+				4920E7EC1C7CD702007FD3D3 /* ChatTableViewCell.swift in Sources */,
 				4920E7CB1C7CD1D8007FD3D3 /* AppDelegate.swift in Sources */,
+				4920E7FB1C7D8B03007FD3D3 /* ChatImageTableViewCell.swift in Sources */,
+				4920E7F61C7CEF8B007FD3D3 /* ChatResponseButton.swift in Sources */,
+				4974DEDE1C7EF934000D0923 /* ChatBubblesLayout.swift in Sources */,
+				4920E7EF1C7CD73D007FD3D3 /* Database.swift in Sources */,
+				4920E7F41C7CECBA007FD3D3 /* ChatResposeCollectionViewCell.swift in Sources */,
+				4920E7EA1C7CD702007FD3D3 /* UIPaddedLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,6 +346,7 @@
 				4920E7DB1C7CD1D8007FD3D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
