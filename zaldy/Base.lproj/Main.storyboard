@@ -164,6 +164,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="FEx-Xr-1FE"/>
+                                    <constraint firstAttribute="height" constant="60" id="ULe-mc-1or"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="FHZ-in-lQi">
                                     <size key="itemSize" width="161" height="50"/>
@@ -211,6 +212,7 @@
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="Akp-FA-xjB"/>
                                 <exclude reference="Xfb-ms-uSw"/>
                                 <exclude reference="mbA-xN-AOm"/>
                             </mask>
@@ -218,6 +220,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Zaldy" id="2b9-k8-0ru"/>
                     <connections>
+                        <outlet property="chatOptionsHeight" destination="ULe-mc-1or" id="U0k-Yv-2VQ"/>
                         <outlet property="chatOptionsWidth" destination="FEx-Xr-1FE" id="FS1-DG-DmM"/>
                         <outlet property="collectionView" destination="sB1-cg-ti2" id="Dzz-1q-kgV"/>
                         <outlet property="tableView" destination="rxd-Sn-OiT" id="4uU-qT-KpD"/>

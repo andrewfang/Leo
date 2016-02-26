@@ -38,11 +38,13 @@ struct Database {
     
     static let responses:[String:ChatConvo] = [
         "Yes!": ChatConvo(ai: "Can you show me?", user: ["Here's a photo!", "Not now"]),
-        "Not yet": ChatConvo(ai: Database.getRandomTip(), user: ["OK"])
+        "Not yet": ChatConvo(ai: "When are you free? I can remind you then so you'll remember to do your exercises!", user: ["Set a reminder", "Not now"]),
+        "Get a tip": ChatConvo(ai: Database.getRandomTip(), user: ["I see"]),
+        "Check in": ChatConvo(ai: "Have you done your exercises for today?", user:["Yes!", "Not yet"])
     ]
     
     static func getResponseTo(message: String) -> ChatConvo {
-        return responses[message] ?? ChatConvo(ai: "What else do you want to do!", user: ["Check in", "Get a tip"])
+        return responses[message] ?? ChatConvo(ai: "What else do you want to do!", user: ["Check in", "Get a tip", "More"])
     }
 }
 
