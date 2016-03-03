@@ -20,10 +20,11 @@ extension UIColor {
     }
     
     static func appColor() -> UIColor {
-        return rgb(52, 73, 94)
+        return rgb(231, 76, 60)
     }
     
     static func appColorAlphaHalf() -> UIColor {
-        return rgba(52, 73, 94, 0.5)
+        return rgba(231, 76, 60, 0.9)
+//        return rgba(52, 73, 94, 0.5)
     }
 }

@@ -51,9 +51,20 @@ struct Database {
 struct ChatConvo {
     var ai:String!
     var user:[String]!
+    var freeResponse:Bool
+    var freeResponseHint: String!
     
     init(ai:String, user:[String]) {
         self.ai = ai
         self.user = user
+        self.freeResponse = false
+        self.freeResponseHint = ""
+    }
+    
+    init(ai:String, freeResponseHint:String) {
+        self.ai = ai
+        self.user = []
+        self.freeResponse = true
+        self.freeResponseHint = freeResponseHint
     }
 }

@@ -8,21 +8,31 @@
 
 import UIKit
 
-class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UITextFieldDelegate {
     
     var chats:[ChatItem] = []
-    
-    var nextChat:ChatConvo = ChatConvo(ai: "Have you done your exercises for today?", user:["Yes!", "Not yet"])
+    var nextChat:ChatConvo = ChatConvo(ai: "Have you done your exercises for today?", user:[])
+    private var state:CurrentState!
     
     @IBOutlet weak var tableView:UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var chatOptionsWidth: NSLayoutConstraint!
     @IBOutlet weak var chatOptionsHeight: NSLayoutConstraint!
     
+    private enum CurrentState {
+        case Normal
+        case WaitingForName
+    }
+    
+    private var keyboardVisible = false
+    private let delay = Double(NSEC_PER_SEC)
+    
     private struct Constants {
         static let UserCell = "userCell"
         static let AICell = "aiCell"
         static let UserImageCell = "UserImageCell"
+        static let UserNameKey = "UserNameKey"
+        static let InjuredPartKey = "InjuredPartKey"
     }
     
     override func viewDidLoad() {
@@ -43,12 +53,17 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.collectionView.showsVerticalScrollIndicator = false
         
         
-        self.title = "Zaldy"
+        self.title = "Leo"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Light", size: 22.0)!, NSForegroundColorAttributeName: UIColor.appColor()]
+        
+        self.tabBarController?.tabBar.tintColor = UIColor.appColor()
         if let bkgd = UIImage(named: "chatBackground") {
             self.view.layer.contents = bkgd.CGImage
         }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationChanged", name: "NotificationSettingsChanged", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillHide:", name: UIKeyboardWillHideNotification, object: nil)
 //        NSNotificationCenter.defaultCenter().addObserver(self, selector: "clearChat", name: "AppEnteredForeground", object: nil)
         
     }
@@ -56,8 +71,29 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if (self.chats.count == 0) {
-            self.chats.append(ChatItem(content: self.nextChat.ai, type: .AI))
-            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+            // if this is the first time logging in, post the chats
+            if (!NSUserDefaults.standardUserDefaults().boolForKey("NotFirstTimeLoggingIn")) {
+                self.nextChat = ChatConvo(ai: "Let’s get started. What’s your name?", freeResponseHint: "Name")
+//                self.nextChat = ChatConvo(ai: "Let’s get started. What’s your name?", user: ["Andrew"])
+                
+                // Delay each message so it feels less AI-y
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay)), dispatch_get_main_queue(), {
+                    self.chats.append(ChatItem(content: "Welcome! I’m Leo, your personal trainer assistant.", type: .AI))
+                    self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay/2)), dispatch_get_main_queue(), {
+                        self.chats.append(ChatItem(content: "My goal is to help you recover quickly, so you’ll be back to your everyday routines.", type: .AI))
+                        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+                        
+                        self.insertNextChat()
+                        self.state = .WaitingForName
+                    })
+                })
+                
+            } else {
+                self.chats.append(ChatItem(content: self.nextChat.ai, type: .AI))
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+            }
         }
         self.tableView.reloadData()
     }
@@ -133,7 +169,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let urlString = self.chats[indexPath.item].tip?.url {
             if let _ = NSURL(string: urlString) {
-                //                performSegueWithIdentifier(CellSegues.ShowWebSegue, sender: url)
+                // performSegueWithIdentifier(CellSegues.ShowWebSegue, sender: url)
             }
         }
         self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
@@ -141,35 +177,56 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - Collection View delegate
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Action Cell", forIndexPath: indexPath)
+        var cellName:String
+        
+        if (self.nextChat.freeResponse) {
+            cellName = "Keyboard Cell"
+        } else {
+            cellName = "Action Cell"
+        }
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellName, forIndexPath: indexPath)
         if let cell = cell as? ChatResposeCollectionViewCell {
             cell.btnResponse.setTitle(self.nextChat.user[indexPath.item], forState: .Normal)
             cell.btnResponse.addTarget(self, action: "respond:", forControlEvents: .TouchUpInside)
+        } else if let cell = cell as? ChatFreeResponseCollectionViewCell {
+            cell.textField.delegate = self
+            cell.textField.placeholder = self.nextChat.freeResponseHint
         }
+        
         return cell
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+
+        if (!self.nextChat.freeResponse) {
+            let numOfItems = self.nextChat.user.count
         
-        let numOfItems = self.nextChat.user.count
-        let totalCharCount = self.nextChat.user.reduce(0, combine: {$0 + $1.characters.count})
-        let padding = (numOfItems - 1) * 10
-        var potentialWidth = CGFloat(numOfItems * 20 + padding + totalCharCount * 12)
-        
-        if (potentialWidth > UIScreen.mainScreen().bounds.width) {
-            potentialWidth = UIScreen.mainScreen().bounds.width
-            self.chatOptionsHeight.constant = 100
+            let totalCharCount = self.nextChat.user.reduce(0, combine: {$0 + $1.characters.count})
+            let padding = (numOfItems - 1) * 10
+            var potentialWidth = CGFloat(numOfItems * 20 + padding + totalCharCount * 12)
+            
+            if (potentialWidth > UIScreen.mainScreen().bounds.width) {
+                potentialWidth = UIScreen.mainScreen().bounds.width
+                self.chatOptionsHeight.constant = 100
+            } else {
+                self.chatOptionsHeight.constant = 50
+            }
+            
+            self.chatOptionsWidth.constant = potentialWidth
+            return numOfItems
         } else {
-            self.chatOptionsHeight.constant = 50
+            self.chatOptionsWidth.constant = 200
+            return 1
         }
-        
-        self.chatOptionsWidth.constant = potentialWidth
-        
-        return numOfItems
     }
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        return CGSizeMake(CGFloat(self.nextChat.user[indexPath.item].characters.count * 12 + 20), 40)
+        if (self.nextChat.freeResponse) {
+            return CGSizeMake(UIScreen.mainScreen().bounds.width * 0.5, 50)
+        } else {
+            return CGSizeMake(CGFloat(self.nextChat.user[indexPath.item].characters.count * 12 + 20), 40)
+        }
     }
     
     // MARK: - Chat responses
@@ -231,12 +288,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             let optionPicker = UIAlertController(title: "Set a reminder", message: "When do you want to be reminded?", preferredStyle: UIAlertControllerStyle.ActionSheet)
             
-            optionPicker.addAction(UIAlertAction(title: "5 minutes", style: .Default, handler: {action in
-                self.setupReminder(1)
-                self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 5 minutes", user: ["Thanks"])
-                self.insertNextChat()
-            }))
-            
             optionPicker.addAction(UIAlertAction(title: "10 minutes", style: .Default, handler: {action in
                 self.setupReminder(10)
                 self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 10 minutes", user: ["Thanks"])
@@ -252,6 +303,12 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             optionPicker.addAction(UIAlertAction(title: "1 hour", style: .Default, handler: {action in
                 self.setupReminder(60)
                 self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 1 hour", user: ["Thanks"])
+                self.insertNextChat()
+            }))
+            
+            optionPicker.addAction(UIAlertAction(title: "2 hours", style: .Default, handler: {action in
+                self.setupReminder(120)
+                self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 2 hours", user: ["Thanks"])
                 self.insertNextChat()
             }))
             
@@ -273,16 +330,87 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if (buttonText.containsString("Go to settings")) {
             UIApplication.sharedApplication().openURL(NSURL(string: UIApplicationOpenSettingsURLString)!)
             return true
+        } else if (buttonText.containsString("Knee") || buttonText.containsString("Ankle") || buttonText.containsString("Wrist") || buttonText.containsString("Hip")) {
+            NSUserDefaults.standardUserDefaults().setValue(buttonText, forKey: Constants.InjuredPartKey)
+            self.nextChat = ChatConvo(ai: "Great! I can definitely help you strengthen your \(buttonText.lowercaseString). Now, do you have a set of exercises that you have Now, what kind of exercises will you be doing to make your \(buttonText.lowercaseString) stronger?", user: <#T##[String]#>)
+            self.insertNextChat()
         }
         return false
     }
     
+
     private func insertNextChat() {
-        self.chats.append(ChatItem(content: self.nextChat.ai, type: .AI))
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-        self.collectionView.reloadData()
+        let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay))
         
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+        dispatch_after(dispatchTime, dispatch_get_main_queue(), {
+            
+            // here code perfomed with delay
+            self.chats.append(ChatItem(content: self.nextChat.ai, type: .AI))
+            self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+            self.collectionView.reloadData()
+            
+            self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+        })
+    }
+    
+    
+    // MARK: - TextField
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        if let tfContent = textField.text where tfContent.characters.count > 0 {
+            textField.resignFirstResponder()
+            
+            if (self.state == .WaitingForName) {
+                self.chats.append(ChatItem(content: tfContent, type: .User))
+                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+                var greeting = "Hello"
+                if let name = textField.text {
+                    NSUserDefaults.standardUserDefaults().setValue(name, forKey: Constants.UserNameKey)
+                    greeting += ", \(name)"
+                }
+                self.nextChat = ChatConvo(ai: "\(greeting). What part of your body are you working to strengthen?", user: ["Knee", "Ankle", "Wrist", "Hip"])
+                self.insertNextChat()
+                self.state = .Normal
+            }
+        }
+        return false
+    }
+    
+    // MARK: - Keyboard movement
+    func keyboardDidShow(notification: NSNotification) {
+        self.keyboardVisible = true
+    }
+    
+    func keyboardWillShow(notification: NSNotification) {
+        if (!self.keyboardVisible) {
+            if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size {
+                
+                UIView.animateWithDuration(0.3, animations: {
+                    var frame = self.view.frame
+                    frame.origin.y = frame.origin.y - keyboardSize.height
+                    self.view.frame = frame
+                })
+                self.keyboardVisible = true
+            }
+        }
+    }
+    
+    func keyboardWillHide(notification: NSNotification) {
+        if (self.keyboardVisible) {
+            if let keyboardSize = notification.userInfo?[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue.size {
+                
+                UIView.animateWithDuration(0.3, animations: {
+                    var frame = self.view.frame
+                    frame.origin.y = frame.origin.y + keyboardSize.height
+                    self.view.frame = frame
+                })
+                self.keyboardVisible = false
+            }
+        }
+    }
+    
+    func keyboardDidHide(notification: NSNotification) {
+        self.keyboardVisible = false
     }
     
     
@@ -313,7 +441,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    // MARK: Clear chat
+    // MARK: Clear chat (not currently used)
     func clearChat() {
         self.chats.removeAll()
         self.tableView.reloadData()
