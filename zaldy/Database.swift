@@ -44,8 +44,10 @@ struct Database {
     ]
     
     static func getResponseTo(message: String) -> ChatConvo {
-        return responses[message] ?? ChatConvo(ai: "What else do you want to do!", user: ["Check in", "Get a tip", "More"])
+        return responses[message] ?? ChatConvo(ai: "Have you done your exercises for today?", user: ["Update log", "Remind me later"])
     }
+    
+    static var didDoExercisesToday = [false, false, false]
 }
 
 struct ChatConvo {

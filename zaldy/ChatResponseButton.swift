@@ -22,7 +22,7 @@ class ChatResponseButton: UIButton {
         self.layer.cornerRadius = 5.0
         self.layer.masksToBounds = true
         self.layer.borderWidth = 0.0
-        self.layer.backgroundColor = UIColor.appColorAlphaHalf().CGColor
+        self.layer.backgroundColor = UIColor.appColor().CGColor
         
         self.addTarget(self, action: "tapped", forControlEvents: .TouchDown)
         self.addTarget(self, action: "untapped", forControlEvents: .TouchUpInside)

@@ -34,4 +34,6 @@ struct ChatItem {
 enum ChatType {
     case User
     case AI
+    case AIThinking
+    case AILog
 }
