@@ -24,6 +24,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         case Normal
         case WaitingForName
         case SettingUpDailyNotification
+        case WaitingForTime
     }
     
     private var keyboardVisible = false
@@ -77,11 +78,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if (self.chats.count == 0) {
-            // if this is the first time logging in, post the chats
+            // if this is the first time logging in, go through the onboarding flow
             if (!NSUserDefaults.standardUserDefaults().boolForKey("NotFirstTimeLoggingIn")) {
                 self.profileButton.tintColor = UIColor.appColor()
                 self.navigationItem.setRightBarButtonItem(nil, animated: false)
-                self.nextChat = ChatConvo(ai: "I notice this is your first time here. I can pull your information from MedBridge if you give me your email address.", freeResponseHint: "Email")
+                self.nextChat = ChatConvo(ai: "I notice this is your first time here. I can pull your information from MedBridge if you give me your email.", freeResponseHint: "Email")
                 
                 // Delay each message so it feels less AI-y
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay)), dispatch_get_main_queue(), {
@@ -168,30 +169,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return cell
     }
     
-    @IBAction func sayRandomTip(sender: UIButton) {
-        guard let buttonText = sender.titleLabel?.text else {
-            return
-        }
-        
-        self.chats.append(ChatItem(content: buttonText, type: .User))
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-        
-        let tip = Database.getRandomTip()
-        self.chats.append(ChatItem(content: tip, type: .AI))
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-        
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let urlString = self.chats[indexPath.item].tip?.url {
-            if let _ = NSURL(string: urlString) {
-                // performSegueWithIdentifier(CellSegues.ShowWebSegue, sender: url)
-            }
-        }
-        self.tableView.deselectRowAtIndexPath(indexPath, animated: false)
-    }
-    
     // MARK: - Collection View delegate
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         var cellName:String
@@ -210,6 +187,21 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.textField.delegate = self
             cell.textField.text = ""
             cell.textField.placeholder = self.nextChat.freeResponseHint
+            self.textFieldToUpdate = cell.textField
+            
+            // We want to use the date time picker for a keyboard if we're letting the user input time
+            if (state == .WaitingForTime) {
+                let datePicker = UIDatePicker()
+                datePicker.addTarget(self, action: "updateTime:", forControlEvents: .ValueChanged)
+                datePicker.datePickerMode = .Time
+                datePicker.minimumDate = NSDate()
+                datePicker.minuteInterval = 15
+                cell.textField.inputView = datePicker
+                cell.textField.inputAccessoryView = makeInputAccessoryView()
+
+            } else {
+                cell.textField.inputView = nil
+            }
         }
         
         return cell
@@ -304,43 +296,16 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 return true
             }
             
-            let optionPicker = UIAlertController(title: "Set a reminder", message: "When do you want to be reminded?", preferredStyle: UIAlertControllerStyle.ActionSheet)
-            
-            optionPicker.addAction(UIAlertAction(title: "10 minutes", style: .Default, handler: {action in
-                self.setupReminder(10)
-                self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 10 minutes", user: ["Thanks"])
-                self.insertNextChat()
-            }))
-            
-            optionPicker.addAction(UIAlertAction(title: "30 minutes", style: .Default, handler: {action in
-                self.setupReminder(30)
-                self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 30 minutes", user: ["Thanks"])
-                self.insertNextChat()
-            }))
-            
-            optionPicker.addAction(UIAlertAction(title: "1 hour", style: .Default, handler: {action in
-                self.setupReminder(60)
-                self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 1 hour", user: ["Thanks"])
-                self.insertNextChat()
-            }))
-            
-            optionPicker.addAction(UIAlertAction(title: "2 hours", style: .Default, handler: {action in
-                self.setupReminder(120)
-                self.nextChat = ChatConvo(ai: "I've scheduled a notification to remind you to do your exercises in 2 hours", user: ["Thanks"])
-                self.insertNextChat()
-            }))
-            
-            
-            optionPicker.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: {action in
-                self.nextChat = ChatConvo(ai: "Are you sure you don't want to set a reminder?", user: ["Set a reminder!", "Not now"])
-                self.insertNextChat()
-            }))
-            
-            optionPicker.popoverPresentationController?.sourceView = sender
-            optionPicker.popoverPresentationController?.sourceRect = sender.bounds
-            optionPicker.popoverPresentationController?.permittedArrowDirections = .Up
-            presentViewController(optionPicker, animated: true, completion: nil)
+            let date = NSCalendar.currentCalendar().components([.Hour, .Minute], fromDate: NSDate())
+            var hour = date.hour % 12
+            if hour == 0 { hour = 12 }
+            let ampm = date.hour < 12 ? "am" : "pm"
+            let minute = date.minute > 9 ? "\(date.minute)" : "0\(date.minute)"
+            self.nextChat = ChatConvo(ai: "The time is now \(hour):\(minute) \(ampm). When would you like me to remind you?", freeResponseHint: "time")
+            self.insertNextChat()
+            self.state = .WaitingForTime
             return true
+
         } else if (buttonText.containsString("Enable notifications")) {
             let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert ,.Badge , .Sound], categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
@@ -366,15 +331,14 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             self.nextChat = ChatConvo(ai: "That's all the setup we need to do!", user: ["Cool!"])
             self.insertNextChat()
             return true
-        } else if (buttonText.lowercaseString.containsString("update log")) {
-            self.nextChat = ChatConvo(ai: "Here's your exercises for today. Check them off if you're done.", user: ["Done"])
+        } else if (buttonText.lowercaseString.containsString("update log") || buttonText.lowercaseString.containsString("do it now")) {
+            self.nextChat = ChatConvo(ai: "Here's your exercises for today. Check them off if you're done.", user: ["Done", "Remind me later"])
             self.insertNextChat()
             
             let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay))
             dispatch_after(dispatchTime, dispatch_get_main_queue(), {
                 self.chats.append(ChatItem(content: "log", type: .AILog))
-                self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-                self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+                self.insertNextChatImmediately()
                 })
             
             return true
@@ -390,8 +354,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     private func insertNextChat() {
         let dispatchTime = dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay))
         self.chats.append(ChatItem(content: "waiting", type: .AIThinking))
-        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+        self.insertNextChatImmediately()
         
         dispatch_after(dispatchTime, dispatch_get_main_queue(), {
             
@@ -404,6 +367,11 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
         })
+    }
+    
+    private func insertNextChatImmediately() {
+        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
+        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
     }
     
     
@@ -425,8 +393,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay*1.5)), dispatch_get_main_queue(), {
                         self.chats.append(ChatItem(content: "waiting", type: .AIThinking))
-                        self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-                        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
+                        self.insertNextChatImmediately()
                         })
                     
                     // regex matching to get first part of email, and capitalize it.
@@ -458,7 +425,50 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return false
     }
     
-    // MARK: - Keyboard movement
+    // MARK: Handler for Date Time
+    private var textFieldToUpdate: UITextField?
+    private var timeToFire: NSDate?
+    
+    func makeInputAccessoryView() -> UIToolbar{
+        let toolbar = UIToolbar()
+        toolbar.barStyle = .Default
+        toolbar.sizeToFit()
+        
+        let flex = UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: self, action: nil)
+        let done = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "confirmTextInput")
+        done.tintColor = UIColor.appColor()
+        
+        toolbar.setItems([flex, done], animated: false)
+        
+        return toolbar
+    }
+    
+    func updateTime(sender: UIDatePicker) {
+        if let tf = self.textFieldToUpdate {
+            let dateForm = NSDateFormatter()
+            dateForm.dateFormat = "h:mm a"
+            tf.text = dateForm.stringFromDate(sender.date)
+            self.timeToFire = sender.date
+        }
+    }
+    
+    func confirmTextInput() {
+        if let tf = self.textFieldToUpdate {
+            self.chats.append(ChatItem(content: tf.text!, type: .User))
+            self.insertNextChatImmediately()
+            
+            if let fireTime = self.timeToFire {
+                self.setupReminder(fireTime)
+                self.timeToFire = nil
+            }
+            
+            self.nextChat = ChatConvo(ai: "Ok, I'll remind you at \(tf.text!). Feel free to leave the app.", user: ["Nevermind, I'll do it now"])
+            self.insertNextChat()
+        }
+    }
+    
+    
+    // MARK: Keyboard movement
     func keyboardDidShow(notification: NSNotification) {
         self.keyboardVisible = true
     }
@@ -497,10 +507,10 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     
     // MARK: - Reminder notification
-    private func setupReminder(minutes:NSTimeInterval) {
+    private func setupReminder(time: NSDate) {
         
         let notification = UILocalNotification()
-        notification.fireDate = NSDate(timeIntervalSinceNow: 60*minutes)
+        notification.fireDate = time
         
         notification.alertBody = "Time to do your exercises!"
         notification.alertAction = "Okay!"
@@ -511,6 +521,8 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print(UIApplication.sharedApplication().scheduledLocalNotifications)
     }
+    
+
     
     
     

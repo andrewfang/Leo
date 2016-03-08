@@ -25,7 +25,7 @@ class ChecklistTableViewCell: UITableViewCell {
     private func configCheck() {
         if (self.checked) {
 //            self.checkboxImageView.image = UIImage(named: "logCircleChecked")
-            self.checkboxImageView.image = UIImage(named: "logCircleFilled")
+            self.checkboxImageView.image = UIImage(named: "logCircleChecked")
 
         } else {
             self.checkboxImageView.image = UIImage(named: "logCircle")

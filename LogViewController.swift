@@ -8,10 +8,9 @@
 
 import UIKit
 
-class LogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate {
+class LogViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITableViewDataSource, UITableViewDelegate, UITabBarControllerDelegate{
 
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var labelHowManyDays: UILabel!
     @IBOutlet weak var detailsView: UIView!
     @IBOutlet weak var detailsTitleLabel: UILabel!
     @IBOutlet weak var tableView:UITableView!
@@ -41,6 +40,7 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
 //            self.view.layer.contents = bkgd.CGImage
 //        }
         
+        self.tabBarController?.delegate = self
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.tableView.delegate = self
@@ -50,7 +50,6 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
         self.detailsView.layer.cornerRadius = 10.0
         self.detailsView.backgroundColor = UIColor.appColor()
         
-        self.labelHowManyDays.text = "Completed 8 of the last 13 days"
         self.detailsTitleLabel.text = "Exercise Log for Today"
         
         self.setContentHidden(!self.connected)
@@ -59,7 +58,6 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
     private func setContentHidden(shouldHide:Bool) {
         let alpha:CGFloat = shouldHide ? 0.0 : 1.0
         self.collectionView.alpha = alpha
-        self.labelHowManyDays.alpha = alpha
         self.detailsView.alpha = alpha
         self.notReadyWarning.alpha = abs(alpha - 1)
     }
@@ -119,7 +117,7 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
             case 1:
                 cell.checkboxTitle.text = "\((whichDay + 10) * 2) shoulder rolls"
             case 2:
-                cell.checkboxTitle.text = "T stretch for \((whichDay)) minutes"
+                cell.checkboxTitle.text = "Stretch for \((whichDay)) minutes"
             default:
                 break
             }
@@ -177,12 +175,12 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
         if (self.isToday()) {
             tableView.deselectRowAtIndexPath(indexPath, animated: true)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ChecklistTableViewCell {
-                if cell.accessoryType == .None {
-                    cell.checked = true
-                    Database.didDoExercisesToday[indexPath.item] = true
-                } else {
+                if cell.checked {
                     cell.checked = false
                     Database.didDoExercisesToday[indexPath.item] = false
+                } else {
+                    cell.checked = true
+                    Database.didDoExercisesToday[indexPath.item] = true
                 }
             }
             if (Database.didDoExercisesToday[0] && Database.didDoExercisesToday[1] && Database.didDoExercisesToday[2]) {
@@ -201,6 +199,15 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
+    }
+    
+    //MARK:- Tabbar controller delegate
+    func tabBarController(tabBarController: UITabBarController, didSelectViewController viewController: UIViewController) {
+        if let navvc = viewController as? UINavigationController {
+            if let logvc = navvc.viewControllers.first as? LogViewController {
+                logvc.tableView.reloadData()
+            }
+        }
     }
     
     

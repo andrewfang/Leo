@@ -40,11 +40,12 @@ struct Database {
         "Yes!": ChatConvo(ai: "Can you show me?", user: ["Here's a photo!", "Not now"]),
         "Not yet": ChatConvo(ai: "When are you free? I can remind you then so you'll remember to do your exercises!", user: ["Set a reminder", "Not now"]),
         "Get a tip": ChatConvo(ai: Database.getRandomTip(), user: ["I see"]),
-        "Check in": ChatConvo(ai: "Have you done your exercises for today?", user:["Yes!", "Not yet"])
+        "Check in": ChatConvo(ai: "Have you done your exercises for today?", user:["Yes!", "Not yet"]),
+        "Thanks": ChatConvo(ai: "Have you done your exercises for today?", user: ["Update log", "Remind me later"])
     ]
     
     static func getResponseTo(message: String) -> ChatConvo {
-        return responses[message] ?? ChatConvo(ai: "Have you done your exercises for today?", user: ["Update log", "Remind me later"])
+        return responses[message] ?? ChatConvo(ai: "That's it for today!", user: [])
     }
     
     static var didDoExercisesToday = [false, false, false]

@@ -394,14 +394,8 @@
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Exercised 7 of the last 14 days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FnT-ZM-0lT">
-                                <rect key="frame" x="173" y="89" width="252" height="26"/>
-                                <fontDescription key="fontDescription" name="Avenir-Light" family="Avenir" pointSize="19"/>
-                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="XxB-zA-Sl8">
-                                <rect key="frame" x="15" y="130" width="570" height="146"/>
+                                <rect key="frame" x="15" y="125" width="570" height="151"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ORw-Mo-L5r">
                                     <size key="itemSize" width="74" height="135"/>
@@ -536,22 +530,18 @@
                         <constraints>
                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="hGS-4Z-ZAs" secondAttribute="trailing" constant="30" id="3WL-5y-eLX"/>
                             <constraint firstItem="XxB-zA-Sl8" firstAttribute="bottom" secondItem="lDK-NB-rYz" secondAttribute="top" constant="10" id="3Yw-GS-IYq"/>
-                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="FnT-ZM-0lT" secondAttribute="trailing" constant="10" id="3f4-sa-Elb"/>
                             <constraint firstItem="lDK-NB-rYz" firstAttribute="top" secondItem="XxB-zA-Sl8" secondAttribute="bottom" constant="10" id="DgJ-pF-a7v"/>
                             <constraint firstItem="hGS-4Z-ZAs" firstAttribute="centerX" secondItem="yf4-a2-5ak" secondAttribute="centerX" id="E3q-R1-O0k"/>
                             <constraint firstAttribute="trailingMargin" secondItem="lDK-NB-rYz" secondAttribute="trailing" constant="10" id="EZs-3Q-IoU"/>
+                            <constraint firstItem="XxB-zA-Sl8" firstAttribute="top" secondItem="cwP-e2-3CN" secondAttribute="bottom" constant="25" id="JZ9-EO-Gbc"/>
                             <constraint firstItem="XxB-zA-Sl8" firstAttribute="top" secondItem="cwP-e2-3CN" secondAttribute="bottom" id="Men-FQ-ero"/>
-                            <constraint firstItem="XxB-zA-Sl8" firstAttribute="top" secondItem="FnT-ZM-0lT" secondAttribute="bottom" constant="10" id="PfW-wm-Zxi"/>
                             <constraint firstItem="hGS-4Z-ZAs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yf4-a2-5ak" secondAttribute="leadingMargin" constant="30" id="Rge-xk-pKu"/>
                             <constraint firstItem="lDK-NB-rYz" firstAttribute="leading" secondItem="yf4-a2-5ak" secondAttribute="leadingMargin" constant="10" id="UlB-OD-6rI"/>
-                            <constraint firstItem="FnT-ZM-0lT" firstAttribute="top" secondItem="cwP-e2-3CN" secondAttribute="bottom" constant="25" id="aAk-xY-oE7"/>
-                            <constraint firstItem="FnT-ZM-0lT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yf4-a2-5ak" secondAttribute="leadingMargin" constant="10" id="aMz-D9-JTp"/>
                             <constraint firstItem="XxB-zA-Sl8" firstAttribute="leading" secondItem="yf4-a2-5ak" secondAttribute="leading" constant="15" id="bNO-cl-Lhv"/>
                             <constraint firstItem="lDK-NB-rYz" firstAttribute="height" secondItem="yf4-a2-5ak" secondAttribute="height" multiplier="0.4" id="e3G-IZ-GVG"/>
                             <constraint firstItem="MbY-XS-pct" firstAttribute="top" secondItem="lDK-NB-rYz" secondAttribute="bottom" constant="25" id="hCE-hT-deO"/>
                             <constraint firstItem="MbY-XS-pct" firstAttribute="top" secondItem="lDK-NB-rYz" secondAttribute="bottom" constant="10" id="oWJ-SC-SNb"/>
                             <constraint firstAttribute="trailing" secondItem="XxB-zA-Sl8" secondAttribute="trailing" constant="15" id="pqx-VQ-8Ro"/>
-                            <constraint firstItem="FnT-ZM-0lT" firstAttribute="centerX" secondItem="yf4-a2-5ak" secondAttribute="centerX" id="scu-i7-k0T"/>
                             <constraint firstItem="hGS-4Z-ZAs" firstAttribute="centerY" secondItem="yf4-a2-5ak" secondAttribute="centerY" id="t5q-hV-p0X"/>
                             <constraint firstItem="XxB-zA-Sl8" firstAttribute="bottom" secondItem="MbY-XS-pct" secondAttribute="top" id="xZh-R5-9gA"/>
                         </constraints>
@@ -569,7 +559,6 @@
                         <outlet property="collectionView" destination="XxB-zA-Sl8" id="e1I-7s-yHy"/>
                         <outlet property="detailsTitleLabel" destination="WcU-4K-tSN" id="Nu4-29-aIH"/>
                         <outlet property="detailsView" destination="lDK-NB-rYz" id="dZR-Xp-M4y"/>
-                        <outlet property="labelHowManyDays" destination="FnT-ZM-0lT" id="ynD-iv-xlF"/>
                         <outlet property="notReadyWarning" destination="hGS-4Z-ZAs" id="rtD-Ic-pqs"/>
                         <outlet property="tableView" destination="kIC-70-aRN" id="ed8-Wn-STp"/>
                     </connections>

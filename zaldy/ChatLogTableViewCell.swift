@@ -33,34 +33,14 @@ class ChatLogTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDat
             switch (indexPath.item) {
             case 0:
                 cell.checkboxTitle.text = "\((whichDay + 10)) jumping jack"
-                cell.checked = false
             case 1:
                 cell.checkboxTitle.text = "\((whichDay + 10) * 2) shoulder rolls"
-                cell.checked = false
             case 2:
-                cell.checkboxTitle.text = "T stretch for \((whichDay)) minutes"
-                cell.checked = false
+                cell.checkboxTitle.text = "Stretch for \((whichDay)) minutes"
             default:
                 break
             }
-        } else {
-            switch (indexPath.item) {
-            case 0:
-                cell.textLabel?.text = "\((whichDay + 10)) jumping jack"
-            case 1:
-                cell.textLabel?.text = "\((whichDay + 10) * 2) shoulder rolls"
-            case 2:
-                cell.textLabel?.text = "T stretch for \((whichDay)) minutes"
-            default:
-                break
-            }
-            
-            if Database.didDoExercisesToday[indexPath.item] {
-                cell.accessoryType = .Checkmark
-            } else {
-                cell.accessoryType = .None
-            }
-            cell.userInteractionEnabled = true
+            cell.checked = Database.didDoExercisesToday[indexPath.item]
         }
         
         
@@ -70,6 +50,8 @@ class ChatLogTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDat
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ChecklistTableViewCell {
             cell.checked = !cell.checked
+            Database.didDoExercisesToday[indexPath.item] = !Database.didDoExercisesToday[indexPath.item]
+            
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
