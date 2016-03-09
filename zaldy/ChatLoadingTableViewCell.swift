@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class defines the outlets and properties for a table view cell that looks like a loading response
 class ChatLoadingTableViewCell: UITableViewCell {
 
     @IBOutlet weak var spinner:UIActivityIndicatorView!

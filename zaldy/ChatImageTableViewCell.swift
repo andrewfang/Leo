@@ -8,6 +8,8 @@
 
 import UIKit
 
+// This class defines the outlets and properties for a table view cell that looks like a image
+// This isn't currently used
 class ChatImageTableViewCell: UITableViewCell {
 
     @IBOutlet weak var sentImage:UIImageView!

@@ -55,7 +55,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-
         self.collectionView.showsHorizontalScrollIndicator = false
         self.collectionView.showsVerticalScrollIndicator = false
         
@@ -64,9 +63,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Light", size: 22.0)!, NSForegroundColorAttributeName: UIColor.appColor()]
         
         self.tabBarController?.tabBar.tintColor = UIColor.appColor()
-//        if let bkgd = UIImage(named: "chatBackground") {
-//            self.view.layer.contents = bkgd.CGImage
-//        }
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "notificationChanged", name: "NotificationSettingsChanged", object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "keyboardWillShow:", name: UIKeyboardWillShowNotification, object: nil)
@@ -82,15 +78,15 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             if (!NSUserDefaults.standardUserDefaults().boolForKey("NotFirstTimeLoggingIn")) {
                 self.profileButton.tintColor = UIColor.appColor()
                 self.navigationItem.setRightBarButtonItem(nil, animated: false)
-                self.nextChat = ChatConvo(ai: "I notice this is your first time here. I can pull your information from MedBridge if you give me your email.", freeResponseHint: "Email")
+                self.nextChat = ChatConvo(ai: "Since this is your first time here, please send me your email address so I can pull the information your therapist has entered into your MedBridge account.", freeResponseHint: "Email")
                 
                 // Delay each message so it feels less AI-y
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay)), dispatch_get_main_queue(), {
-                    self.chats.append(ChatItem(content: "Welcome! I’m Leo, your personal trainer assistant.", type: .AI))
+                    self.chats.append(ChatItem(content: "Hi! I'm Leo, your physical therapy assistant.", type: .AI))
                     self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay/2)), dispatch_get_main_queue(), {
-                        self.chats.append(ChatItem(content: "My goal is to help you recover quickly, so you’ll be back to your everyday routines.", type: .AI))
+                        self.chats.append(ChatItem(content: "My goal is to help you in your recovery process, so you'll get back to 100% as soon as possible.", type: .AI))
                         self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
                         
                         self.insertNextChat()
@@ -136,8 +132,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             }
         } else if chatItem.type == ChatType.AILog {
             cell = tableView.dequeueReusableCellWithIdentifier(Constants.AILogCell, forIndexPath: indexPath)
-//            if let cell = cell as? ChatLogTableViewCell {
-//            }
         } else {
             // Shouldn't really get to this case but...
             cell = tableView.dequeueReusableCellWithIdentifier(Constants.UserCell, forIndexPath: indexPath)
@@ -187,6 +181,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
             cell.textField.delegate = self
             cell.textField.text = ""
             cell.textField.placeholder = self.nextChat.freeResponseHint
+            cell.textField.tintColor = UIColor.whiteColor()
             self.textFieldToUpdate = cell.textField
             
             // We want to use the date time picker for a keyboard if we're letting the user input time
@@ -371,7 +366,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     private func insertNextChatImmediately() {
         self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: self.chats.count - 1, inSection: 0)], withRowAnimation: .Fade)
-        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: true)
+        self.tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: self.chats.count - 1, inSection: 0), atScrollPosition: .Bottom, animated: false)
     }
     
     
@@ -388,7 +383,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 NSUserDefaults.standardUserDefaults().setValue(tfContent, forKey: Constants.UserNameKey)
                 
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay)), dispatch_get_main_queue(), {
-                    self.nextChat = ChatConvo(ai: "Pulling information from MedBridge. Please wait...", user: [])
+                    self.nextChat = ChatConvo(ai: "Thanks! Please wait while I check your account.", user: [])
                     self.insertNextChat()
                     
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(self.delay*1.5)), dispatch_get_main_queue(), {
@@ -521,10 +516,6 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         UIApplication.sharedApplication().scheduleLocalNotification(notification)
         print(UIApplication.sharedApplication().scheduledLocalNotifications)
     }
-    
-
-    
-    
     
     private func showDailyReminderDialog() {
         let optionPicker = UIAlertController(title: "Set a reminder", message: "When do you want to be reminded?", preferredStyle: UIAlertControllerStyle.ActionSheet)

@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class defines the outlets and properties for a table view cell that is inside the tableview inside the ChatLogTableViewCell
 class ChecklistTableViewCell: UITableViewCell {
 
     @IBOutlet weak var checkboxImageView: UIImageView!
@@ -24,7 +25,6 @@ class ChecklistTableViewCell: UITableViewCell {
     
     private func configCheck() {
         if (self.checked) {
-//            self.checkboxImageView.image = UIImage(named: "logCircleChecked")
             self.checkboxImageView.image = UIImage(named: "logCircleChecked")
 
         } else {

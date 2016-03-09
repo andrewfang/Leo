@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class defines the outlets and properties for a table view cell that has the log for today's exercise
 class ChatLogTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableContainerView:UIView!
@@ -30,19 +31,10 @@ class ChatLogTableViewCell: UITableViewCell, UITableViewDelegate, UITableViewDat
         let cell = tableView.dequeueReusableCellWithIdentifier("exerciseCell", forIndexPath: indexPath)
         
         if let cell = cell as? ChecklistTableViewCell {
-            switch (indexPath.item) {
-            case 0:
-                cell.checkboxTitle.text = "\((whichDay + 10)) jumping jack"
-            case 1:
-                cell.checkboxTitle.text = "\((whichDay + 10) * 2) shoulder rolls"
-            case 2:
-                cell.checkboxTitle.text = "Stretch for \((whichDay)) minutes"
-            default:
-                break
-            }
+            // Grab the hard coded exercises from the database
+            cell.checkboxTitle.text = Database.exercises[self.whichDay][indexPath.item]
             cell.checked = Database.didDoExercisesToday[indexPath.item]
         }
-        
         
         return cell
     }

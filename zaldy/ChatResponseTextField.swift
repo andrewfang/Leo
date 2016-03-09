@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class styles the text fields in the UICollectionView part of the chat response
 class ChatResponseTextField: UITextField {
 
     // Only override drawRect: if you perform custom drawing.

@@ -49,6 +49,22 @@ struct Database {
     }
     
     static var didDoExercisesToday = [false, false, false]
+    
+    static var exercises: [[String]] = [
+        ["Doorway stretch (10 seconds)", "External rotation (1 set of 10)", "Reverse fly (1 set of 10)"],
+        ["Doorway stretch (20 seconds)", "External rotation (2 sets of 10)", "Reverse fly (2 sets of 10)"],
+        ["Doorway stretch (30 seconds)", "External rotation (3 sets of 10)", "Reverse fly (3 sets of 10)"],
+        ["Plank (2 sets of 20 seconds)", "External rotation (3 sets of 15)", "Reverse fly (3 sets of 10)"],
+        ["Plank (3 sets of 20 seconds)", "External rotation (3 sets of 20)", "I's and W's (2 sets of 10)"],
+        ["Plank (4 sets of 20 seconds)", "External rotation (3 sets of 25)", "I's and W's (3 sets of 10)"],
+        ["Plank (3 sets of 30 seconds)", "High to Low Rows (3 sets of 10)" , "I's and W's (3 sets of 15)"],
+        ["Plank (4 sets of 30 seconds)", "High to Low Rows (3 sets of 10)" , "I's and W's (3 sets of 15)"],
+        ["Plank (4 sets of 40 seconds)", "High to Low Rows (4 sets of 10)" , "Plank Push-ups (1 set of 10)"],
+        ["Plank (5 sets of 40 seconds)", "High to Low Rows (4 sets of 10)" , "Plank Push-ups (2 sets of 10)"],
+        ["Superman (3 sets of 10)"     , "High to Low Rows (4 sets of 15)" , "Plank Push-ups (2 sets of 15)"],
+        ["Superman (4 sets of 10)"     , "High to Low Rows (4 sets of 15)" , "Plank Push-ups (2 sets of 15)"],
+        ["Superman (4 sets of 15)"     , "High to Low Rows (5 sets of 15)" , "Plank Push-ups (3 sets of 15)"],
+    ]
 }
 
 struct ChatConvo {

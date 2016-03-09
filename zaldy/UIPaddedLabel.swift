@@ -9,6 +9,7 @@
 
 import UIKit
 
+// This class defines the layout for label that looks like a chat box
 class UIPaddedLabel: UILabel {
 
     // Only override drawRect: if you perform custom drawing.

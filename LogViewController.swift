@@ -36,9 +36,6 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
         self.navigationController?.navigationBar.titleTextAttributes = [NSFontAttributeName: UIFont(name: "Avenir Light", size: 22.0)!, NSForegroundColorAttributeName: UIColor.appColor()]
         
         self.tabBarController?.tabBar.tintColor = UIColor.appColor()
-//        if let bkgd = UIImage(named: "chatBackground") {
-//            self.view.layer.contents = bkgd.CGImage
-//        }
         
         self.tabBarController?.delegate = self
         self.collectionView.delegate = self
@@ -64,7 +61,6 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
     
     // MARK: - Collection View delegate
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-//        var cellName:String
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Log Cell", forIndexPath: indexPath)
         
@@ -74,6 +70,11 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
                 cell.imgCircle.image = UIImage(named: "logCircle")
             } else {
                 cell.imgCircle.image = UIImage(named: "logCircleFilled")
+            }
+            if (indexPath.item == self.whichDay) {
+                cell.labelDate.textColor = UIColor.appColor()
+            } else {
+                cell.labelDate.textColor = UIColor.grayColor()
             }
         }
         
@@ -98,6 +99,7 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
         UIView.animateWithDuration(0.5, animations: {
             self.detailsView.alpha = 1.0
         })
+        self.collectionView.reloadData()
         self.tableView.reloadData()
     }
     
@@ -111,16 +113,7 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("exerciseCell", forIndexPath: indexPath)
         if let cell = cell as? ChecklistTableViewCell {
-            switch (indexPath.item) {
-            case 0:
-                cell.checkboxTitle.text = "\((whichDay + 10)) jumping jack"
-            case 1:
-                cell.checkboxTitle.text = "\((whichDay + 10) * 2) shoulder rolls"
-            case 2:
-                cell.checkboxTitle.text = "Stretch for \((whichDay)) minutes"
-            default:
-                break
-            }
+            cell.checkboxTitle.text = Database.exercises[self.whichDay][indexPath.item]
             
             if (self.isToday()) {
                 if Database.didDoExercisesToday[indexPath.item] {
@@ -140,34 +133,6 @@ class LogViewController: UIViewController, UICollectionViewDataSource, UICollect
 
             
         }
-//        switch (indexPath.item) {
-//        case 0:
-//            cell.textLabel?.text = "\((whichDay + 10)) jumping jack"
-//        case 1:
-//            cell.textLabel?.text = "\((whichDay + 10) * 2) shoulder rolls"
-//        case 2:
-//            cell.textLabel?.text = "T stretch for \((whichDay)) minutes"
-//        default:
-//            break
-//        }
-//        
-//        if (self.isToday()) {
-//            if Database.didDoExercisesToday[indexPath.item] {
-//                cell.accessoryType = .Checkmark
-//            } else {
-//                cell.accessoryType = .None
-//            }
-//            cell.userInteractionEnabled = true
-//        } else {
-//            if didExercise[self.whichDay] {
-//                cell.accessoryType = .Checkmark
-//            } else {
-//                cell.accessoryType = .None
-//            }
-//            cell.userInteractionEnabled = false
-//        }
-
-        
         return cell
     }
     

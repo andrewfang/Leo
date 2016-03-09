@@ -8,6 +8,9 @@
 
 import UIKit
 
+// This class defines the outlets for a chat response cell with a button
 class ChatResposeCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var btnResponse: UIButton!
+    
 }

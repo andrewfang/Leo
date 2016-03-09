@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class defines the outlets and properties for a table view cell that looks like a chat box
 class ChatTableViewCell: UITableViewCell {
 
     @IBOutlet weak var content: UILabel!

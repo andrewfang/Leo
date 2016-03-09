@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class styles the buttons in the UICollectionView part of the chat response
 class ChatResponseButton: UIButton {
     
     override func drawRect(rect: CGRect) {

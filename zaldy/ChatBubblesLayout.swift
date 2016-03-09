@@ -8,6 +8,7 @@
 
 import UIKit
 
+// This class isn't used for now
 class ChatBubblesLayout: UICollectionViewLayout, UICollectionViewDelegateFlowLayout {
     
     func collectionView(collectionView: UICollectionView,
