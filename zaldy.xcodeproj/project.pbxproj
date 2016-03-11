@@ -28,6 +28,8 @@
 		494A8BCC1C8E44920092B531 /* ChatLogTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494A8BCB1C8E44920092B531 /* ChatLogTableViewCell.swift */; };
 		494A8BCE1C8E6D030092B531 /* ChecklistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 494A8BCD1C8E6D030092B531 /* ChecklistTableViewCell.swift */; };
 		4974DEDE1C7EF934000D0923 /* ChatBubblesLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4974DEDD1C7EF934000D0923 /* ChatBubblesLayout.swift */; };
+		912027921C928F1800376B84 /* GifImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 912027911C928F1800376B84 /* GifImage.swift */; };
+		912027941C928F1D00376B84 /* loading.gif in Resources */ = {isa = PBXBuildFile; fileRef = 912027931C928F1D00376B84 /* loading.gif */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +56,8 @@
 		494A8BCB1C8E44920092B531 /* ChatLogTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogTableViewCell.swift; sourceTree = "<group>"; };
 		494A8BCD1C8E6D030092B531 /* ChecklistTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChecklistTableViewCell.swift; sourceTree = "<group>"; };
 		4974DEDD1C7EF934000D0923 /* ChatBubblesLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBubblesLayout.swift; sourceTree = "<group>"; };
+		912027911C928F1800376B84 /* GifImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GifImage.swift; sourceTree = "<group>"; };
+		912027931C928F1D00376B84 /* loading.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = loading.gif; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +122,8 @@
 				494A8BC91C8D41880092B531 /* ChatLoadingTableViewCell.swift */,
 				494A8BCB1C8E44920092B531 /* ChatLogTableViewCell.swift */,
 				494A8BCD1C8E6D030092B531 /* ChecklistTableViewCell.swift */,
+				912027911C928F1800376B84 /* GifImage.swift */,
+				912027931C928F1D00376B84 /* loading.gif */,
 			);
 			name = ChatSubviews;
 			sourceTree = "<group>";
@@ -211,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4920E7D51C7CD1D8007FD3D3 /* LaunchScreen.storyboard in Resources */,
+				912027941C928F1D00376B84 /* loading.gif in Resources */,
 				4920E7D21C7CD1D8007FD3D3 /* Assets.xcassets in Resources */,
 				4920E7D01C7CD1D8007FD3D3 /* Main.storyboard in Resources */,
 			);
@@ -226,6 +233,7 @@
 				4920E7EB1C7CD702007FD3D3 /* ChatItem.swift in Sources */,
 				4920E7DD1C7CD6BE007FD3D3 /* ChatViewController.swift in Sources */,
 				4920E7F11C7CDA1D007FD3D3 /* UIColor+PT.swift in Sources */,
+				912027921C928F1800376B84 /* GifImage.swift in Sources */,
 				494A8BCC1C8E44920092B531 /* ChatLogTableViewCell.swift in Sources */,
 				494A8BC11C863B7C0092B531 /* LogViewController.swift in Sources */,
 				494A8BC81C876E1C0092B531 /* ChatResponseTextField.swift in Sources */,

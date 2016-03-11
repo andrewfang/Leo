@@ -128,7 +128,7 @@ class ChatViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else if chatItem.type == ChatType.AIThinking {
             cell = tableView.dequeueReusableCellWithIdentifier(Constants.AIThinkingCell, forIndexPath: indexPath)
             if let cell = cell as? ChatLoadingTableViewCell {
-                cell.spinner.startAnimating()
+                cell.updateUI()
             }
         } else if chatItem.type == ChatType.AILog {
             cell = tableView.dequeueReusableCellWithIdentifier(Constants.AILogCell, forIndexPath: indexPath)
